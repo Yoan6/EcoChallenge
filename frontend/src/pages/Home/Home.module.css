@@ -1,0 +1,37 @@
+.home_page {
+    background-image: url('../../../public/assets/Home/home.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+#btn_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+    align-items: center;
+    background-color: rgba(78, 78, 78, 0.56);
+}
+
+.btn_game {
+    text-decoration: none;
+    padding: 5px;
+    width: 100px;
+    background: linear-gradient(to bottom, #8BC34A, #388E3C);
+    color: #FFFFFF;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.btn_game:hover {
+    background: #2E7D32;
+}

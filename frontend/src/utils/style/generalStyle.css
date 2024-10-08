@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    color: black;
+}
+
+#home_logo {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+}
+
+#home_logo img {
+    width: 100px;
+    height: 70px;
+    transition: transform 0.15s;
+}
+
+#home_logo img:hover {
+    transform: scale(1.05);
+}
