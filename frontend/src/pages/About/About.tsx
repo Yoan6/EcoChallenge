@@ -1,12 +1,14 @@
+import style from './About.module.css'
+
 function About() {
     return (
-        <div>
-            <h1>Bienvenue dans EcoChallenge 🌍🎮</h1>
+        <div className={style.about_page}>
+            <h1>Bienvenue dans Eco Challenge 🌍🎮</h1>
 
             <h2>Préparez-vous à plonger dans un univers passionnant où l'amusement et la sensibilisation à l'écologie se rencontrent !</h2>
 
-            <p>Dans EcoChallenge, vous êtes le héros d'une aventure interactive qui met à l'épreuve vos compétences en matière de durabilité et de
-            respect de l'environnement. Explorez votre ville, ou morceau de ville à plusieurs en mode multijoueur, réparer des infrastrucures et
+            <p>Dans Eco Challenge, vous êtes le héros d'une aventure interactive qui met à l'épreuve vos compétences en matière de durabilité et de
+            respect de l'environnement. Explorez votre ville, ou morceau de ville à plusieurs en mode multijoueur, réparez des infrastrucures et
             relevez des défis écologiques qui feront de vous un champion de l'écologie !</p>
 
             <p>🌱 Ce qui vous attend :</p>
@@ -19,7 +21,7 @@ function About() {
                     dans le jeu et dans la vie réelle.</li>
             </ul>
 
-            <p>Prêt à relever le défi ? Enfilez votre casque d'aventurier et préparez-vous à sauver notre planète, un jeu à la fois !</p>
+            <p>Prêt à relever le défi ? Armez-vous de connaissances et préparez-vous à sauver notre planète !</p>
         </div>
     )
 }
