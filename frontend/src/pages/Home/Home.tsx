@@ -36,12 +36,10 @@ function Home() {
 
             {modal_new_game && (
                 <div className={style.nb_player_wrapper}>
-                    <div onClick={() => display_modal_new_game(false)} id={style.close}>
-                        <img className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
-                    </div>
+                    <img onClick={() => display_modal_new_game(false)} id={style.close} className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
                     <div className={style.nb_player}>
                         <h2>Choisissez le mode de jeu</h2>
-                        <Link to="/" onClick={() => display_modal_new_game(false)} className={style.btn_game}>
+                        <Link to="/game" onClick={() => display_modal_new_game(false)} className={style.btn_game}>
                             Solo
                         </Link>
                         <Link to="/" onClick={() => display_modal_new_game(false)} className={style.btn_game}>

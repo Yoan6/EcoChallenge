@@ -1,6 +1,12 @@
+import { useEffect } from 'react';
 import style from './About.module.css'
 
 function About() {
+
+    useEffect(() => {
+        document.body.style.backgroundColor = '#A1E158';
+      }, []);
+
     return (
         <div className={style.about_page}>
             <h1>Bienvenue dans Eco Challenge 🌍🎮</h1>

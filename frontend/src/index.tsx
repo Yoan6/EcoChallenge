@@ -4,12 +4,15 @@ import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
 import './utils/style/generalStyle.css'
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
+import colors from './utils/colors';
+import Game from './components/Game/Game';
 
 function App() {
     return (
         <>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/game" element={<Game />} />
                 <Route path="/about" element={<About />} />
             </Routes>
         </>
