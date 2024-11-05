@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres
+    container_name: ecoproject-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: EcoChallengeDB
+    ports:
+      - "5433:5432"
+    user: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../../../bdd/insert_data.sql:/scripts/insert_data.sql
+
+volumes:
+  postgres_data:
