@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres
     container_name: ecoproject-postgres
-    restart: unless-stopped
+    restart: no
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root

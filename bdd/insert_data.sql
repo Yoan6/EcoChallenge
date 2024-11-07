@@ -4,7 +4,6 @@
 DROP TABLE IF EXISTS Choice CASCADE;
 DROP TABLE IF EXISTS Quiz CASCADE;
 DROP TABLE IF EXISTS Event CASCADE;
-DROP TABLE IF EXISTS CityStatus CASCADE;
 DROP TABLE IF EXISTS Player CASCADE;
 DROP TABLE IF EXISTS Game CASCADE;
 
@@ -14,19 +13,15 @@ DROP TABLE IF EXISTS Game CASCADE;
 CREATE TABLE Game (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    nb_turn INTEGER NOT NULL
+    nb_turn INTEGER NOT NULL,
+    player_id_actual INTEGER
 );
 
 -- Création de la table Player
 CREATE TABLE Player (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    color VARCHAR(50) DEFAULT 'grey'
-);
-
--- Création de la table CityStatus
-CREATE TABLE CityStatus (
-    player_id INTEGER PRIMARY KEY,
+    color VARCHAR(50) DEFAULT 'grey',
     health INTEGER NOT NULL,
     pollution INTEGER NOT NULL,
     happiness INTEGER NOT NULL,
@@ -35,7 +30,6 @@ CREATE TABLE CityStatus (
     money DECIMAL(10, 2) NOT NULL,
     city_state VARCHAR(50) NOT NULL,
     game_id INTEGER,
-    FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES Game(id) ON DELETE CASCADE
 );
 
@@ -83,17 +77,12 @@ CREATE TABLE Quiz (
 );
 
 -- Insertion de données dans la table Game
-INSERT INTO Game (name, nb_turn) VALUES ('test', 1);
-
--- Insertion de données dans la table Player
-INSERT INTO Player (name, color) VALUES
-('Alice', 'Red'),
-('Bob', 'Blue');
+INSERT INTO Game (name, nb_turn, player_id_actual) VALUES ('test', 1, 1);
 
 -- Insertion de données dans la table CityStatus
-INSERT INTO CityStatus (player_id, health, pollution, happiness, water, electricity, money, city_state, game_id) VALUES
-(1, 80, 20, 70, 100, 100, 500.00, 'Healthy', 1),
-(2, 60, 40, 60, 80, 90, 300.00, 'Degraded', 1);
+INSERT INTO Player (name, color, health, pollution, happiness, water, electricity, money, city_state, game_id) VALUES
+('Alice', 'Red', 80, 20, 70, 100, 100, 500.00, 'Healthy', 1),
+('Bob', 'Blue', 60, 40, 60, 80, 90, 300.00, 'Degraded', 1);
 
 -- Insertion de données dans la table Event
 INSERT INTO Event (name, description, risk_category, health_impact, pollution_impact, happiness_impact, water_impact, electricity_impact, money_impact) VALUES

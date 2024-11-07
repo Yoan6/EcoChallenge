@@ -19,7 +19,13 @@ back-end and a React front-end.
     cd backend
     ```
 
+2. Start the backend :
+    ```bash
+    mvn spring-boot:run
+    ```
+
 ### Data insertion
+Insert the data with :
 ```bash
 docker exec -i ecoproject-postgres psql -d EcoChallengeDB -f /scripts/insert_data.sql
 ```
