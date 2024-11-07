@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "PLAYER")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "NAME")
@@ -37,9 +36,12 @@ public class Player {
     @Column(name = "CITY_STATE")
     private String city_state;
 
+    @Column(name = "GAME_ID")
+    private Integer game_id;
+
     public Player() {}
 
-    public Player(Integer id, String name, String color, Integer health, Integer pollution, Integer happiness, Integer water, Integer electricity, float money, String city_state) {
+    public Player(Integer id, String name, String color, Integer health, Integer pollution, Integer happiness, Integer water, Integer electricity, float money, String city_state, Integer game_id) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -50,6 +52,7 @@ public class Player {
         this.electricity = electricity;
         this.money = money;
         this.city_state = city_state;
+        this.game_id = game_id;
     }
 
     public Integer getId() {
@@ -126,5 +129,9 @@ public class Player {
 
     public void setCity_state(String city_state) {
         this.city_state = city_state;
+    }
+
+    public Integer getGame_id() {
+        return game_id;
     }
 }

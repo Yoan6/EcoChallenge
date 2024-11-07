@@ -29,7 +29,7 @@ CREATE TABLE Player (
     electricity INTEGER NOT NULL,
     money DECIMAL(10, 2) NOT NULL,
     city_state VARCHAR(50) NOT NULL,
-    game_id INTEGER,
+    game_id INTEGER NOT NULL,
     FOREIGN KEY (game_id) REFERENCES Game(id) ON DELETE CASCADE
 );
 
@@ -52,7 +52,7 @@ CREATE TABLE Choice (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    event_id INTEGER,
+    event_id INTEGER NOT NULL,
     health_impact INTEGER DEFAULT 0,
     pollution_impact INTEGER DEFAULT 0,
     happiness_impact INTEGER DEFAULT 0,

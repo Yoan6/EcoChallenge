@@ -9,7 +9,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "player")
+@RequestMapping(path = "players")
 public class PlayerController {
     private final PlayerService playerService;
 
@@ -30,6 +30,6 @@ public class PlayerController {
 
     @GetMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
     public Player searchPlayer(@PathVariable Integer id) {
-        return this.playerService.searchPlayer(id);
+        return this.playerService.searchPlayers(id);
     }
 }
