@@ -21,7 +21,7 @@ public class PlayerService {
         this.gameRepository = gameRepository;
     }
 
-    public void addPlayerToGame(Player player, Integer gameId) {
+    public void addPlayer(Player player, Integer gameId) {
         if (player.getId() != null) {
             throw new IllegalArgumentException("L'id doit être null quand on crée un joueur");
         }

@@ -27,10 +27,9 @@ public class Game {
 
     public Game(){}
 
-    public Game(Integer id, String name, Integer nb_turn) {
+    public Game(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.nb_turn = nb_turn;
     }
 
     public Integer getId() {

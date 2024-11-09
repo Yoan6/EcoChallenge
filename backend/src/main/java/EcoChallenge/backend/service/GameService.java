@@ -24,4 +24,8 @@ public class GameService {
         Optional<Game> optionalGame = this.gameRepository.findById(gameId);
         return optionalGame.orElse(null);
     }
+
+    public void createGame(Game game) {
+        gameRepository.save(game);
+    }
 }

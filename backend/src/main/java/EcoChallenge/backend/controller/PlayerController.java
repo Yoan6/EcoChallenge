@@ -18,11 +18,10 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(path = "{gameId}", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addPlayerToGame(@PathVariable Integer gameId, @RequestBody Player player) {
+    public ResponseEntity<String> addPlayer(@PathVariable Integer gameId, @RequestBody Player player) {
         try {
-            playerService.addPlayerToGame(player, gameId);
+            playerService.addPlayer(player, gameId);
             return ResponseEntity.status(HttpStatus.CREATED).body("Joueur créé avec succès !");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS Game CASCADE;
 CREATE TABLE Game (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    nb_turn INTEGER NOT NULL,
+    nb_turn INTEGER DEFAULT 0,
     player_id_actual INTEGER
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE Quiz (
 );
 
 -- Insertion de données dans la table Game
-INSERT INTO Game (name, nb_turn, player_id_actual) VALUES ('test', 1, 1);
+INSERT INTO Game (name, player_id_actual) VALUES ('test', 1);
 
 -- Insertion de données dans la table CityStatus
 INSERT INTO Player (name, color, health, pollution, happiness, water, electricity, money, city_state, game_id) VALUES

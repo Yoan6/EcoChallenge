@@ -3,10 +3,9 @@ package EcoChallenge.backend.controller;
 import EcoChallenge.backend.entites.Game;
 import EcoChallenge.backend.entites.Player;
 import EcoChallenge.backend.service.GameService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,16 @@ public class GameController {
     @GetMapping("/{gameId}")
     public Game getGame(@PathVariable Integer gameId) {
         return gameService.findGameById(gameId);
+    }
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createGame(@RequestBody Game game) {
+        try {
+            gameService.createGame(game);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Partie créé avec succès !");
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
