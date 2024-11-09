@@ -29,7 +29,7 @@ CREATE TABLE Player (
     electricity INTEGER NOT NULL,
     money DECIMAL(10, 2) NOT NULL,
     city_state VARCHAR(50) NOT NULL,
-    game_id INTEGER NOT NULL,
+    game_id INTEGER,
     FOREIGN KEY (game_id) REFERENCES Game(id) ON DELETE CASCADE
 );
 

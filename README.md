@@ -18,8 +18,13 @@ back-end and a React front-end.
     ```bash
     cd backend
     ```
+   
+2. Launch the docker container that contains the database :
+    ```bash
+    docker-compose up -d
+    ```
 
-2. Start the backend :
+3. Start the backend :
     ```bash
     mvn spring-boot:run
     ```

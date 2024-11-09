@@ -1,6 +1,10 @@
 package EcoChallenge.backend.entites;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "GAME")
@@ -15,17 +19,18 @@ public class Game {
     @Column(name = "NB_TURN")
     private Integer nb_turn;
 
-    @OneToOne
-    @JoinColumn(name = "player_id_actual")
-    private Player player_actual;
+    @Column(name = "PLAYER_ID_ACTUAL")
+    private Integer player_id_actual;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Player> players = new ArrayList<>();
 
     public Game(){}
 
-    public Game(Integer id, String name, Integer nb_turn, Player player_actual) {
+    public Game(Integer id, String name, Integer nb_turn) {
         this.id = id;
         this.name = name;
         this.nb_turn = nb_turn;
-        this.player_actual = player_actual;
     }
 
     public Integer getId() {
@@ -48,11 +53,20 @@ public class Game {
         this.nb_turn = nb_turn;
     }
 
-    public Player getPlayer_actual() {
-        return player_actual;
+    public Integer getPlayer_id_actual() {
+        return player_id_actual;
     }
 
-    public void setPlayer_actual(Player player_actual) {
-        this.player_actual = player_actual;
+    public void setPlayer_actual(Integer player_id_actual) {
+        this.player_id_actual = player_id_actual;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+        player.setGame(this);
     }
 }

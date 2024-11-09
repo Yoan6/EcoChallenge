@@ -3,6 +3,7 @@ package EcoChallenge.backend.controller;
 import EcoChallenge.backend.entites.Player;
 import EcoChallenge.backend.service.PlayerService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -18,9 +19,14 @@ public class PlayerController {
     }
 
     @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public void create(@RequestBody Player player) {
-        this.playerService.create(player);
+    @PostMapping(path = "{gameId}", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addPlayerToGame(@PathVariable Integer gameId, @RequestBody Player player) {
+        try {
+            playerService.addPlayerToGame(player, gameId);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Joueur créé avec succès !");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

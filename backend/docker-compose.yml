@@ -13,7 +13,7 @@ services:
     user: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ../../../../bdd/insert_data.sql:/scripts/insert_data.sql
+      - ../bdd/insert_data.sql:/scripts/insert_data.sql
 
 volumes:
   postgres_data:

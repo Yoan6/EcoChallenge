@@ -1,5 +1,7 @@
 package EcoChallenge.backend.entites;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -36,12 +38,14 @@ public class Player {
     @Column(name = "CITY_STATE")
     private String city_state;
 
-    @Column(name = "GAME_ID")
-    private Integer game_id;
+    @ManyToOne
+    @JoinColumn(name = "GAME_ID")
+    @JsonIgnore
+    private Game game;
 
     public Player() {}
 
-    public Player(Integer id, String name, String color, Integer health, Integer pollution, Integer happiness, Integer water, Integer electricity, float money, String city_state, Integer game_id) {
+    public Player(Integer id, String name, String color, Integer health, Integer pollution, Integer happiness, Integer water, Integer electricity, float money, String city_state) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -52,7 +56,6 @@ public class Player {
         this.electricity = electricity;
         this.money = money;
         this.city_state = city_state;
-        this.game_id = game_id;
     }
 
     public Integer getId() {
@@ -131,7 +134,11 @@ public class Player {
         this.city_state = city_state;
     }
 
-    public Integer getGame_id() {
-        return game_id;
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
