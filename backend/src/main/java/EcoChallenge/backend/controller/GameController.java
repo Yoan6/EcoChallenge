@@ -1,7 +1,6 @@
 package EcoChallenge.backend.controller;
 
 import EcoChallenge.backend.entites.Game;
-import EcoChallenge.backend.entites.Player;
 import EcoChallenge.backend.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class GameController {
         return this.gameService.getGames();
     }
 
-    @GetMapping("/{gameId}")
+    @GetMapping(path = "{gameId}")
     public Game getGame(@PathVariable Integer gameId) {
         return gameService.findGameById(gameId);
     }
@@ -35,6 +34,28 @@ public class GameController {
         try {
             gameService.createGame(game);
             return ResponseEntity.status(HttpStatus.CREATED).body("Partie créé avec succès !");
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PutMapping(path = "{gameId}", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> setGame(@PathVariable Integer gameId, @RequestBody Game game) {
+        try {
+            gameService.setGame(gameId, game);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Partie modifiée avec succès !");
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping(path = "{gameId}")
+    public ResponseEntity<String> deleteGame(@PathVariable Integer gameId) {
+        try {
+            this.gameService.deleteGameById(gameId);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Partie supprimée avec succès !");
         }
         catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

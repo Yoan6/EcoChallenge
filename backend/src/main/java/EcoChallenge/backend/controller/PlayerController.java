@@ -18,7 +18,7 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @PostMapping(path = "{gameId}", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "game/{gameId}", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addPlayer(@PathVariable Integer gameId, @RequestBody Player player) {
         try {
             playerService.addPlayer(player, gameId);
