@@ -29,6 +29,14 @@ back-end and a React front-end.
     mvn spring-boot:run
     ```
 
+   If you have this error : failed with MalformedInputException: Input length = 1 -> [Help 1]
+   
+   Copy this command to change the format of the file 'application.properties' to UTF-8 :
+   
+   ```bash
+   iconv -f ISO-8859-1 -t UTF-8 application.properties -o application.properties.utf8 && mv application.properties.utf8 application.properties
+   ```
+
 ### Data insertion
 Insert the data with :
 ```bash
