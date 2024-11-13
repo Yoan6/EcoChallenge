@@ -41,8 +41,17 @@ public class GameService {
     public void setGame(Integer gameId, Game game) {
         Game gameInBdd = this.findGameById(gameId);
 
+        // Check si le joueur actuel changé existe en bdd
         Player playerInBdd = playerRepository.findById(game.getPlayer_id_actual()).orElseThrow(() ->
-                new IllegalArgumentException("Le joueur actuel avec l'ID : " + game.getPlayer_id_actual() + " n'existe pas dans la bdd"));
+                new IllegalArgumentException("Le joueur actuel avec l'ID : " + game.getPlayer_id_actual() + " n'existe pas dans la BDD"));
+
+        // Check si le joueur actuel changé existe dans la partie
+        boolean playerInGame = gameInBdd.getPlayers().stream()
+                .anyMatch(player -> Objects.equals(player.getId(), playerInBdd.getId()));
+
+        if (!playerInGame) {
+            throw new IllegalArgumentException("Le joueur avec l'ID : " + game.getPlayer_id_actual() + " ne fait pas partie des joueurs de la partie");
+        }
 
         gameInBdd.setName(game.getName());
         gameInBdd.setNb_turn(game.getNb_turn());
@@ -52,6 +61,8 @@ public class GameService {
     }
 
     public void deleteGameById(Integer gameId) {
-        this.gameRepository.deleteById(gameId);
+        Game gameInBdd = gameRepository.findById(gameId).orElseThrow(() ->
+                new IllegalArgumentException("Partie non trouvé avec l'ID : " + gameId));
+        this.gameRepository.deleteById(gameInBdd.getId());
     }
 }

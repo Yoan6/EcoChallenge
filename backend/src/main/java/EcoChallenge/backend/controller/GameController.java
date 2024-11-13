@@ -34,8 +34,7 @@ public class GameController {
         try {
             gameService.createGame(game);
             return ResponseEntity.status(HttpStatus.CREATED).body("Partie créé avec succès !");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -45,8 +44,7 @@ public class GameController {
         try {
             gameService.setGame(gameId, game);
             return ResponseEntity.status(HttpStatus.CREATED).body("Partie modifiée avec succès !");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -56,8 +54,7 @@ public class GameController {
         try {
             this.gameService.deleteGameById(gameId);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Partie supprimée avec succès !");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

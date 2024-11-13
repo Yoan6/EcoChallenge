@@ -5,6 +5,7 @@ import EcoChallenge.backend.service.PlayerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
@@ -18,6 +19,16 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public List<Player> search() {
+        return this.playerService.search();
+    }
+
+    @GetMapping(path = "{playerId}", produces = APPLICATION_JSON_VALUE)
+    public Player searchPlayer(@PathVariable Integer playerId) {
+        return this.playerService.searchPlayer(playerId);
+    }
+
     @PostMapping(path = "game/{gameId}", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addPlayer(@PathVariable Integer gameId, @RequestBody Player player) {
         try {
@@ -28,13 +39,23 @@ public class PlayerController {
         }
     }
 
-    @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public List<Player> search() {
-        return this.playerService.search();
+    @PutMapping(path = "{playerId}", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> setPlayer(@PathVariable Integer playerId, @RequestBody Player player) {
+        try {
+            playerService.setPlayer(playerId, player);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Joueur modifiée avec succès !");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
-    @GetMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
-    public Player searchPlayer(@PathVariable Integer id) {
-        return this.playerService.searchPlayers(id);
+    @DeleteMapping(path = "{playerId}")
+    public ResponseEntity<String> deletePlayer(@PathVariable Integer playerId) {
+        try {
+            this.playerService.deletePlayerById(playerId);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Joueur supprimé avec succès !");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

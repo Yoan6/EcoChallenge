@@ -56,8 +56,43 @@ public class PlayerService {
         return this.playerRepository.findAll();
     }
 
-    public Player searchPlayers(Integer id) {
-        Optional<Player> optionnalPlayer = this.playerRepository.findById(id);
+    public Player searchPlayer(Integer playerId) {
+        Optional<Player> optionnalPlayer = this.playerRepository.findById(playerId);
+
+        if (optionnalPlayer.isEmpty()) {
+            throw new IllegalArgumentException("Joueur non trouvée avec l'ID : " + playerId);
+        }
+
         return optionnalPlayer.orElse(null);
+    }
+
+    public void setPlayer(Integer playerId, Player player) {
+        Player playerInBdd = searchPlayer(playerId);
+
+        playerInBdd.setName(player.getName());
+        playerInBdd.setColor(player.getColor());
+        playerInBdd.setHealth(player.getHealth());
+        playerInBdd.setPollution(player.getPollution());
+        playerInBdd.setHappiness(player.getHappiness());
+        playerInBdd.setWater(player.getWater());
+        playerInBdd.setElectricity(player.getElectricity());
+        playerInBdd.setMoney(player.getMoney());
+
+        // Vérifie si cityState est parmi {healthy, degraded, bad, dying, dead}
+        try {
+            CityState.valueOf(player.getCity_state());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("État de ville non-valide : " + player.getCity_state());
+        }
+
+        playerInBdd.setCity_state(player.getCity_state());
+
+        playerRepository.save(playerInBdd);
+    }
+
+    public void deletePlayerById(Integer playerId) {
+        Player playerInBdd = playerRepository.findById(playerId).orElseThrow(() ->
+                new IllegalArgumentException("Joueur non trouvé avec l'ID : " + playerId));
+        this.playerRepository.deleteById(playerInBdd.getId());
     }
 }
