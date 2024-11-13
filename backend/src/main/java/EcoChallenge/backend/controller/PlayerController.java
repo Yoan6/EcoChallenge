@@ -25,8 +25,13 @@ public class PlayerController {
     }
 
     @GetMapping(path = "{playerId}", produces = APPLICATION_JSON_VALUE)
-    public Player searchPlayer(@PathVariable Integer playerId) {
-        return this.playerService.searchPlayer(playerId);
+    public ResponseEntity<?> searchPlayer(@PathVariable Integer playerId) {
+        try {
+            Player playerInBdd = playerService.searchPlayer(playerId);
+            return ResponseEntity.ok(playerInBdd);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PostMapping(path = "game/{gameId}", consumes = APPLICATION_JSON_VALUE)

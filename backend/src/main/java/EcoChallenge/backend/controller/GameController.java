@@ -25,8 +25,13 @@ public class GameController {
     }
 
     @GetMapping(path = "{gameId}")
-    public Game getGame(@PathVariable Integer gameId) {
-        return gameService.findGameById(gameId);
+    public ResponseEntity<?> getGame(@PathVariable Integer gameId) {
+        try {
+            Game gameInBdd = gameService.findGameById(gameId);
+            return ResponseEntity.ok(gameInBdd);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
