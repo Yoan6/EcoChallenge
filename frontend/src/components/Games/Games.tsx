@@ -4,33 +4,30 @@ import {Link} from "react-router-dom";
 import './Games.css'
 
 interface GamesProps {
-    closeModal: () => void;
+    closeModalGames: () => void;
 }
 
-function Games( {closeModal}: GamesProps ) {
-    const [games, setGames] = useState<any[]>();
+function Games( {closeModalGames}: GamesProps ) {
+    const [games, setGames] = useState<any[]>([]);
 
     useEffect(() => {
-        // Charge l'état initial de la ville depuis le serveur
-        fetch('http://localhost:8080/games')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
+        // Charge l'état initial de la ville depuis le serveur via APIService
+        const fetchGames = async () => {
+            try {
+                const data = await APIService.request('GET', '/games');
                 console.log("Games : ", data);
                 setGames(data);
-            })
-            .catch(error => {
-                console.error("Error fetching game : ", error);
-            });
+            } catch (error) {
+                console.error("Error fetching games:", error);
+            }
+        };
+
+        fetchGames();
     }, []);
 
     return (
         <div className="nb_player_wrapper">
-            <img onClick={() => closeModal()} id="close" className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
+            <img onClick={() => closeModalGames()} id="close" className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
             <div className="nb_player">
                 <h2>Parties en cours</h2>
                 {games?.map((game:any) => (

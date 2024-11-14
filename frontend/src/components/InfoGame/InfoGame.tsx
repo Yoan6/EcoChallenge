@@ -3,14 +3,17 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import './InfoGame.css'
 
-function InfoGame(typeGame:string) {
-    if (typeGame == 'solo') {
+interface InfoGameProps {
+    nb_player: number;
+}
 
-    }
-
-    else {
-
-    }
+function InfoGame({ nb_player }: InfoGameProps) {
+    return (
+        <div>
+            <h2>Informations sur la partie</h2>
+            <p>Nombre de joueurs : {nb_player}</p>
+        </div>
+    );
 }
 
 export default InfoGame;
