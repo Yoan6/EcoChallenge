@@ -22,12 +22,12 @@ function App() {
 // @ts-ignore
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <Router>
             <Link id="home_logo" to="/">
                 <img id="home_logo" src='./assets/logo.png' alt="home"/>
             </Link>
             <App />
         </Router>
-    </React.StrictMode>
+    // </React.StrictMode>
 );

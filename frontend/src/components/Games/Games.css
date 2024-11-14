@@ -1,27 +1,3 @@
-.home_page {
-    background-image: url('../../../public/assets/Home/home.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-}
-
-#btn_container {
-    position: absolute;
-    bottom: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 15px 25px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    gap: 40px;
-    align-items: center;
-    background-color: rgba(78, 78, 78, 0.56);
-}
-
 .btn_game {
     text-decoration: none;
     padding: 10px;
@@ -35,9 +11,7 @@
 
 .btn_game:hover {
     background: #2E7D32;
-    cursor: pointer;
 }
-
 
 /*Modale nombre de joueur*/
 .nb_player_wrapper {

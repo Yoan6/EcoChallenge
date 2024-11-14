@@ -4,17 +4,8 @@ import GameOver from '../GameOver/GameOver';
 
 function Game() {
     const [cityState, setCityState] = useState<string>('healthy');
-    const [turnNumber, setTurnNumber] = useState<number>(1);
 
     useEffect(() => {
-        // Charge l'état initial de la ville depuis le serveur
-        // fetch('/api/game/state')
-        //   .then(response => response.json())
-        //   .then(data => {
-        //     setCityState(data.state);
-        //     setTurnNumber(data.turnNumber);
-        //   });
-
         document.body.style.backgroundColor = getCityBackgroundColor();
         if (['bad', 'dying', 'dead'].includes(cityState)) {
             document.body.style.color = 'white';
@@ -24,7 +15,7 @@ function Game() {
             document.body.style.backgroundColor = '';
             document.body.style.color = '';
         };
-    }, []);
+    }, [cityState]);
 
     // Récupère la couleur de fond associée à l'état de la ville
     const getCityBackgroundColor = () => {
@@ -44,27 +35,27 @@ function Game() {
         }
     };
 
-    const handleNextTurn = () => {
-        // Passe au prochain tour
-        fetch('/api/game/next-turn', { method: 'POST' })
-            .then(response => response.json())
-            .then(data => {
-                setCityState(data.state);
-                setTurnNumber(data.turnNumber);
-            });
-    };
+    // const handleNextTurn = () => {
+    //     // Passe au prochain tour
+    //     fetch('/api/game/next-turn', { method: 'POST' })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setCityState(data.state);
+    //             setTurnNumber(data.turnNumber);
+    //         });
+    // };
 
     return (
         <>
-        {cityState !== 'dead' && (
-            <div>
-            <h1>Tour {turnNumber}</h1>
-            <p>État de la ville : {cityState}</p>
-            <button onClick={handleNextTurn}>Passer au tour suivant</button>
-        </div>
-        )}
-        
-        {cityState === 'dead' && <GameOver />}
+            {cityState !== 'dead' && (
+                <div>
+                    <h1>Tour 1</h1>
+                    <p>État de la ville : {cityState}</p>
+                    <button>Passer au tour suivant</button>
+                </div>
+            )}
+
+            {cityState === 'dead' && <GameOver />}
         </>
     );
 }
