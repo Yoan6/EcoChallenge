@@ -26,13 +26,6 @@ public class PlayerService {
             throw new IllegalArgumentException("L'id doit être null quand on crée un joueur");
         }
 
-        // Vérifie si cityState est parmi {healthy, degraded, bad, dying, dead}
-        try {
-            CityState.valueOf(player.getCity_state());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("État de ville non-valide : " + player.getCity_state());
-        }
-
         // Vérifie l'unicité de la couleur dans la même Game
         Game game = gameRepository.findById(gameId).orElseThrow(() ->
                 new IllegalArgumentException("Partie non trouvé avec l'ID : " + gameId));

@@ -2,18 +2,22 @@ package EcoChallenge.backend.entites;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicInsert;
+
+import java.math.BigDecimal;
 
 @Entity
+@DynamicInsert
 @Table(name = "PLAYER")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "COLOR")
+    @Column(name = "COLOR", nullable = false)
     private String color;
 
     @Column(name = "HEALTH")
@@ -32,7 +36,7 @@ public class Player {
     private Integer electricity;
 
     @Column(name = "MONEY")
-    private float money;
+    private BigDecimal money;
 
     @Column(name = "CITY_STATE")
     private String city_state;
@@ -44,8 +48,12 @@ public class Player {
 
     public Player() {}
 
-    public Player(Integer id, String name, String color, Integer health, Integer pollution, Integer happiness, Integer water, Integer electricity, float money, String city_state) {
-        this.id = id;
+    public Player(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    public Player(String name, String color, Integer health, Integer pollution, Integer happiness, Integer water, Integer electricity, BigDecimal money, String city_state) {
         this.name = name;
         this.color = color;
         this.health = health;
@@ -117,11 +125,11 @@ public class Player {
         this.electricity = electricity;
     }
 
-    public float getMoney() {
+    public BigDecimal getMoney() {
         return money;
     }
 
-    public void setMoney(float money) {
+    public void setMoney(BigDecimal money) {
         this.money = money;
     }
 
