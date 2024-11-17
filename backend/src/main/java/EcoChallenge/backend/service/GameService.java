@@ -35,6 +35,13 @@ public class GameService {
     }
 
     public void createGame(Game game) {
+        List<Game> gamesInBdd = this.getGames();
+
+        boolean nameExists = gamesInBdd.stream()
+                .anyMatch(existingGame -> Objects.equals(existingGame.getName(), game.getName()));
+        if (nameExists) {
+            throw new IllegalArgumentException("Une partie avec le nom " + game.getName() + " existe déjà.");
+        }
         gameRepository.save(game);
     }
 
