@@ -12,7 +12,11 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000"); // URL du front-end
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000") // URL du front-end
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Autorise PUT et autres méthodes
+                        .allowedHeaders("*") // Autorise tous les en-têtes
+                        .allowCredentials(true); // Si des cookies ou des sessions sont utilisés
             }
         };
     }
