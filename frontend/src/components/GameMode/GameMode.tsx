@@ -14,13 +14,18 @@ function GameMode({ closeModalGameMode, openModalInfoGame, setNbPlayer }: GameMo
         closeModalGameMode();
         openModalInfoGame();
     }
+    function changePageToInfoGameSolo() {
+        setNbPlayer(1);
+        closeModalGameMode();
+        openModalInfoGame();
+    }
 
     return (
         <div className="nb_player_wrapper">
             <img onClick={() => closeModalGameMode()} id="close" className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
             <div className="game_mode">
                 <h2>Choisissez le mode de jeu</h2>
-                <a onClick={() => closeModalGameMode()} className="btn_game">
+                <a onClick={() => changePageToInfoGameSolo()} className="btn_game">
                     Solo
                 </a>
                 <a onClick={() => displayMulti(true)} className="btn_game">
@@ -30,7 +35,7 @@ function GameMode({ closeModalGameMode, openModalInfoGame, setNbPlayer }: GameMo
                     <>
                         <div id="nb_player">
                             <p>Nombre de joueur : </p>
-                            <select onChange={(e) => setNbPlayer(parseInt(e.target.value))}> {/* Met à jour nb_player */}
+                            <select onChange={(e) => setNbPlayer(parseInt(e.target.value))}> {/* Met à jour le nombre de joueur */}
                                 {Array.from({ length: 9 }, (_, i) => (
                                     <option key={i + 2} value={i + 2}>{i + 2}</option>
                                 ))}

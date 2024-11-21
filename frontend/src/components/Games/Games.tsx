@@ -15,8 +15,8 @@ function Games( {closeModalGames}: GamesProps ) {
         const fetchGames = async () => {
             try {
                 const data = await APIService.request('GET', '/games');
-                console.log("Games : ", data);
-                setGames(data);
+                console.log("Games : ", data.games);
+                setGames(data.games);
             } catch (error) {
                 console.error("Error fetching games:", error);
             }

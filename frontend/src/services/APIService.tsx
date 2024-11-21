@@ -1,4 +1,3 @@
-// APIService.ts
 const API_URL = "http://localhost:8080"; // URL de l'API
 
 class APIService {
@@ -10,7 +9,6 @@ class APIService {
             },
         };
 
-        // Ajoute les données dans le corps de la requête pour POST et PUT
         if (data && (method === "POST" || method === "PUT")) {
             options.body = JSON.stringify(data);
         }
@@ -18,14 +16,21 @@ class APIService {
         try {
             const response = await fetch(`${API_URL}${endpoint}`, options);
 
+            // Vérifie si la réponse est correcte (status 2xx)
             if (!response.ok) {
-                throw new Error(`Erreur ${method}: ${response.status}`);
+                const errorResponse = await response.json();
+                throw new Error(errorResponse.message || "Une erreur est survenue.");
             }
 
-            // Si la méthode est DELETE, on peut ne pas attendre de réponse en JSON
-            return method === "DELETE" ? null : await response.json();
-        } catch (error) {
-            console.error(`Erreur lors de la requête ${method}:`, error);
+            // Parse la réponse JSON
+            const jsonResponse = await response.json();
+            if (jsonResponse.status !== "success") {
+                throw new Error(jsonResponse.message || "Une erreur est survenue.");
+            }
+
+            return jsonResponse;
+        } catch (error: any) {
+            console.error("Erreur lors de la requête:", error.message);
             throw error;
         }
     }

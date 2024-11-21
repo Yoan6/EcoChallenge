@@ -15,7 +15,7 @@ function Home() {
     useEffect(() => {
         document.body.classList.add('home_page');
         const btnContainer = document.getElementById(style.btn_container);
-        if (modal_game_mode || modal_games) {
+        if (modal_game_mode || modal_games || modal_info_game) {
             btnContainer?.setAttribute('inert', 'true');
             btnContainer?.style.setProperty('filter', 'blur(5px)');
         } else {
@@ -25,9 +25,10 @@ function Home() {
         return () => {
             document.body.classList.remove('home_page');
         };
-    }, [modal_game_mode, modal_games]);
+    }, [modal_game_mode, modal_games, modal_info_game]);
 
     const closeGameMode = () => display_modal_game_mode(false);
+    const closeInfoGame = () => display_modal_info_game(false);
     const openInfoGame = () => display_modal_info_game(true);
     const closeGames = () => display_modal_games(false);
 
@@ -49,7 +50,15 @@ function Home() {
 
             {modal_games && <Games closeModalGames={closeGames} />}
 
-            {modal_info_game && <InfoGame nb_player={nb_player} />} {/* Passe nb_player à InfoGame */}
+            {modal_info_game && (
+                <InfoGame 
+                    nb_player={nb_player} 
+                    closeModalInfoGame={() => {
+                        closeInfoGame();
+                    }} 
+                    setNbPlayer={setNbPlayer} 
+                />
+            )}
         </div>
     );
 }
