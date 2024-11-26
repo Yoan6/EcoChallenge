@@ -2,13 +2,14 @@ import APIService from '../../services/APIService'
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import './Games.css'
+import { useModals } from '../../utils/context/ModalContext';
 
-interface GamesProps {
-    displayGames: (value: boolean) => void;
-}
-
-function Games({ displayGames }: GamesProps) {
-    const [games, setGames] = useState<any[]>([]);
+const Games: React.FC = () => {
+    const {
+        setGames
+    } = useModals();
+    
+    const [games, changeGames] = useState<any[]>([]);
 
     useEffect(() => {
         // Charge l'état initial de la ville depuis le serveur via APIService
@@ -16,7 +17,7 @@ function Games({ displayGames }: GamesProps) {
             try {
                 const data = await APIService.request('GET', '/games');
                 console.log("Games : ", data.games);
-                setGames(data.games);
+                changeGames(data.games);
             } catch (error) {
                 console.error("Error fetching games:", error);
             }
@@ -27,7 +28,7 @@ function Games({ displayGames }: GamesProps) {
 
     return (
         <div className="games_wrapper">
-            <img onClick={() => displayGames(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
+            <img onClick={() => setGames(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
             <h2>Parties en cours</h2>
             <div className="games">
                 {games?.map((game: any) => (

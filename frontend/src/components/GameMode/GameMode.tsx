@@ -1,28 +1,32 @@
 import { useState } from "react";
 import './GameMode.css';
+import { useModals } from "../../utils/context/ModalContext";
 
 interface GameModeProps {
-    displayGameMode: (value: boolean) => void;
-    displayInfoGame: (value: boolean) => void;
     setNbPlayer: (value: number) => void; // Nouvelle prop pour mettre à jour nb_player dans Home
 }
 
-function GameMode({ displayGameMode, displayInfoGame, setNbPlayer }: GameModeProps) {
+const GameMode: React.FC<GameModeProps> = ({ setNbPlayer }) => {
+    const {
+        setGameMode,
+        setInfoGame,
+    } = useModals();
+    
     const [multi, displayMulti] = useState(false);
 
     function changePageToInfoGame() {
-        displayGameMode(false);
-        displayInfoGame(true);
+        setGameMode(false);
+        setInfoGame(true);
     }
     function changePageToInfoGameSolo() {
         setNbPlayer(1);
-        displayGameMode(false);
-        displayInfoGame(true);
+        setGameMode(false);
+        setInfoGame(true);
     }
 
     return (
         <div className="game_mode_wrapper">
-            <img onClick={() => displayGameMode(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
+            <img onClick={() => setGameMode(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
             <div className="game_mode">
                 <h2>Choisissez le mode de jeu</h2>
                 <a onClick={() => changePageToInfoGameSolo()} className="btn_game">

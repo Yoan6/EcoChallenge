@@ -2,11 +2,10 @@ import { useState } from "react";
 import './InfoGame.css';
 import { useNavigate } from "react-router-dom";
 import APIService from "../../services/APIService";
+import { useModals } from "../../utils/context/ModalContext";
 
 interface InfoGameProps {
     nb_player: number;
-    displayInfoGame: (value: boolean) => void;
-    displayGameMode: (value: boolean) => void;
     setNbPlayer: (value: number) => void;
 }
 
@@ -15,7 +14,13 @@ interface Player {
     color: string;
 }
 
-function InfoGame({ nb_player, displayInfoGame, displayGameMode, setNbPlayer }: InfoGameProps) {
+const InfoGame: React.FC<InfoGameProps> = ({ nb_player, setNbPlayer }) => {
+    const {
+        setGameMode,
+        setInfoGame,
+        closeAllModals
+    } = useModals();
+
     const [players, setPlayers] = useState<Player[]>(
         Array.from({ length: nb_player }, () => ({ name: "", color: "#000000" }))
     );
@@ -68,8 +73,8 @@ function InfoGame({ nb_player, displayInfoGame, displayGameMode, setNbPlayer }: 
     };
 
     const backToGameMode = () => {
-        displayInfoGame(false);
-        displayGameMode(true);
+        setInfoGame(false);
+        setGameMode(true);
     }
 
     async function StartGame() {
@@ -167,6 +172,8 @@ function InfoGame({ nb_player, displayInfoGame, displayGameMode, setNbPlayer }: 
             return
         }
 
+        closeAllModals();
+
         // Redirection vers la page Game
         navigate("/game/"+gameId);
     }
@@ -176,7 +183,7 @@ function InfoGame({ nb_player, displayInfoGame, displayGameMode, setNbPlayer }: 
         <div className="info_game_wrapper">
             <img
                 onClick={() => {
-                    displayInfoGame(false);
+                    setInfoGame(false);
                     setNbPlayer(2); // Réinitialise nb_player lors de la fermeture
                 }}
                 id="close"

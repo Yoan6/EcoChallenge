@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import colors from '../../utils/colors';
-import GameOver from '../GameOver/GameOver';
+import GameOver from '../../components/GameOver/GameOver';
+import APIService from '../../services/APIService';
 
 function Game() {
     const [cityState, setCityState] = useState<string>('healthy');
 
-    useEffect(() => {
-        document.body.style.backgroundColor = getCityBackgroundColor();
-        if (['bad', 'dying', 'dead'].includes(cityState)) {
-            document.body.style.color = 'white';
-        }
+    // useEffect(async () => {
+    //     // Récupération de la partie
+    //     try {
+    //         const responseGame = await APIService.request("GET", "/games/" + gameId);
+    //         gameInBdd = responseGame.game;
+    //     } catch (error: any) {
+    //         console.log("Erreur lors de la récupération de la partie :", error.message);
+    //         return
+    //     }
 
-        return () => {
-            document.body.style.backgroundColor = '';
-            document.body.style.color = '';
-        };
-    }, [cityState]);
+    //     document.body.style.backgroundColor = getCityBackgroundColor();
+    //     if (['bad', 'dying', 'dead'].includes(cityState)) {
+    //         document.body.style.color = 'white';
+    //     }
+
+    //     return () => {
+    //         document.body.style.backgroundColor = '';
+    //         document.body.style.color = '';
+    //     };
+    // }, [cityState]);
 
     // Récupère la couleur de fond associée à l'état de la ville
     const getCityBackgroundColor = () => {
