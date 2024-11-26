@@ -1,13 +1,13 @@
 import APIService from '../../services/APIService'
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import './Games.css'
 
 interface GamesProps {
     displayGames: (value: boolean) => void;
 }
 
-function Games( {displayGames}: GamesProps ) {
+function Games({ displayGames }: GamesProps) {
     const [games, setGames] = useState<any[]>([]);
 
     useEffect(() => {
@@ -27,10 +27,10 @@ function Games( {displayGames}: GamesProps ) {
 
     return (
         <div className="games_wrapper">
-            <img onClick={() => displayGames(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
+            <img onClick={() => displayGames(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
+            <h2>Parties en cours</h2>
             <div className="games">
-                <h2>Parties en cours</h2>
-                {games?.map((game:any) => (
+                {games?.map((game: any) => (
                     <Link key={game.id} to={`/game/${game.id}`} className="btn_game">
                         {game.name}
                     </Link>
