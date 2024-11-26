@@ -6,10 +6,9 @@ import Games from '../../components/Games/Games';
 import style from './Home.module.css';
 
 function Home() {
-    const [game, setGame] = useState(null);
-    const [modal_game_mode, display_modal_game_mode] = useState(false);
-    const [modal_games, display_modal_games] = useState(false);
-    const [modal_info_game, display_modal_info_game] = useState(false);
+    const [modal_game_mode, display_game_mode] = useState(false);
+    const [modal_games, display_games] = useState(false);
+    const [modal_info_game, display_info_game] = useState(false);
     const [nb_player, setNbPlayer] = useState<number>(2); // Nouvel état pour le nombre de joueurs
 
     useEffect(() => {
@@ -27,35 +26,29 @@ function Home() {
         };
     }, [modal_game_mode, modal_games, modal_info_game]);
 
-    const closeGameMode = () => display_modal_game_mode(false);
-    const closeInfoGame = () => display_modal_info_game(false);
-    const openInfoGame = () => display_modal_info_game(true);
-    const closeGames = () => display_modal_games(false);
-
     return (
         <div className={style.home_page}>
             <div id={style.btn_container}>
-                <a className={style.btn_game} onClick={() => display_modal_game_mode(true)}>Nouvelle partie</a>
-                <a className={style.btn_game} onClick={() => display_modal_games(true)}>Continuer une partie</a>
-                <Link className={style.btn_game} to="/about">A propos du jeu</Link>
+                <a className="btn_game" onClick={() => display_game_mode(true)}>Nouvelle partie</a>
+                <a className="btn_game" onClick={() => display_games(true)}>Continuer une partie</a>
+                <Link className="btn_game" to="/about">A propos du jeu</Link>
             </div>
 
             {modal_game_mode && (
                 <GameMode
-                    closeModalGameMode={closeGameMode}
-                    openModalInfoGame={openInfoGame}
+                    displayGameMode={display_game_mode}
+                    displayInfoGame={display_info_game}
                     setNbPlayer={setNbPlayer} // Passe la fonction pour mettre à jour nb_player
                 />
             )}
 
-            {modal_games && <Games closeModalGames={closeGames} />}
+            {modal_games && <Games displayGames={display_games} />}
 
             {modal_info_game && (
                 <InfoGame 
                     nb_player={nb_player} 
-                    closeModalInfoGame={() => {
-                        closeInfoGame();
-                    }} 
+                    displayInfoGame={display_info_game}
+                    displayGameMode={display_game_mode}
                     setNbPlayer={setNbPlayer} 
                 />
             )}

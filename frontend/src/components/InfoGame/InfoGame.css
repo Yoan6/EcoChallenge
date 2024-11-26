@@ -1,44 +1,29 @@
-.btn_game {
-    text-decoration: none;
-    padding: 10px;
-    width: 160px;
-    background-color: #8BC34A;
-    color: #FFFFFF;
-    border-radius: 10px;
-    text-align: center;
-    border: none;
-}
-
-.btn_game:hover {
-    background: #2E7D32;
-}
-
-/*Modale nombre de joueur*/
-.game_wrapper {
+/*Modale info game*/
+.info_game_wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 1600px;
     padding: 40px;
-    background-color: #228B22;
+    background-color: #2E7D32;
     border-radius: 10px;
+    color: #FFFFFF;
 }
 
-.game_wrapper h2 {
+.info_game_wrapper h2 {
     text-align: center;
     margin-top: 0;
 }
 
-.game_wrapper h3 {
+.info_game_wrapper h3 {
     margin-bottom: 0;
 }
 
-.game_wrapper input {
+.info_game_wrapper input {
     margin: 0 10px;
 }
 
-.game_wrapper hr {
+.info_game_wrapper hr {
     border: 1px solid black;
     margin: 20px 0 0 0;
 }
@@ -66,8 +51,12 @@
     margin-top: 20px;
 }
 
-#close {
+.back {
     position: absolute;
-    right: 20px;
-    top: 14px;
+    bottom: 15px;
+    left: 30px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }

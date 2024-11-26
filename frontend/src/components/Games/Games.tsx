@@ -4,10 +4,10 @@ import {Link} from "react-router-dom";
 import './Games.css'
 
 interface GamesProps {
-    closeModalGames: () => void;
+    displayGames: (value: boolean) => void;
 }
 
-function Games( {closeModalGames}: GamesProps ) {
+function Games( {displayGames}: GamesProps ) {
     const [games, setGames] = useState<any[]>([]);
 
     useEffect(() => {
@@ -26,9 +26,9 @@ function Games( {closeModalGames}: GamesProps ) {
     }, []);
 
     return (
-        <div className="nb_player_wrapper">
-            <img onClick={() => closeModalGames()} id="close" className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
-            <div className="nb_player">
+        <div className="games_wrapper">
+            <img onClick={() => displayGames(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer"/>
+            <div className="games">
                 <h2>Parties en cours</h2>
                 {games?.map((game:any) => (
                     <Link key={game.id} to={`/game/${game.id}`} className="btn_game">

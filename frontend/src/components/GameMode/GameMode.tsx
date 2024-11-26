@@ -2,27 +2,27 @@ import { useState } from "react";
 import './GameMode.css';
 
 interface GameModeProps {
-    closeModalGameMode: () => void;
-    openModalInfoGame: () => void;
+    displayGameMode: (value: boolean) => void;
+    displayInfoGame: (value: boolean) => void;
     setNbPlayer: (value: number) => void; // Nouvelle prop pour mettre à jour nb_player dans Home
 }
 
-function GameMode({ closeModalGameMode, openModalInfoGame, setNbPlayer }: GameModeProps) {
+function GameMode({ displayGameMode, displayInfoGame, setNbPlayer }: GameModeProps) {
     const [multi, displayMulti] = useState(false);
 
     function changePageToInfoGame() {
-        closeModalGameMode();
-        openModalInfoGame();
+        displayGameMode(false);
+        displayInfoGame(true);
     }
     function changePageToInfoGameSolo() {
         setNbPlayer(1);
-        closeModalGameMode();
-        openModalInfoGame();
+        displayGameMode(false);
+        displayInfoGame(true);
     }
 
     return (
-        <div className="nb_player_wrapper">
-            <img onClick={() => closeModalGameMode()} id="close" className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
+        <div className="game_mode_wrapper">
+            <img onClick={() => displayGameMode(false)} className="icon-close" src="/assets/general/cross.svg" alt="fermer" />
             <div className="game_mode">
                 <h2>Choisissez le mode de jeu</h2>
                 <a onClick={() => changePageToInfoGameSolo()} className="btn_game">
@@ -47,6 +47,11 @@ function GameMode({ closeModalGameMode, openModalInfoGame, setNbPlayer }: GameMo
                         </a>
                     </>
                 )}
+            </div>
+
+            <div className="breadcrumb">
+                <span className="step-number">1</span>
+                <span className="step-number inactive"></span>
             </div>
         </div>
     );

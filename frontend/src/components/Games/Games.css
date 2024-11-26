@@ -1,39 +1,20 @@
-.btn_game {
-    text-decoration: none;
-    padding: 10px;
-    width: 160px;
-    background-color: #8BC34A;
-    color: #FFFFFF;
-    border-radius: 10px;
-    text-align: center;
-    border: none;
-}
-
-.btn_game:hover {
-    background: #2E7D32;
-}
-
-/*Modale nombre de joueur*/
-.nb_player_wrapper {
+/* Wrapper */
+.games_wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 40px;
-    background-color: #228B22;
+    background-color: #2E7D32;
     border-radius: 10px;
+    color: #FFFFFF;
 }
 
-.nb_player {
+/* Contenu interne */
+.games {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px
-}
-
-#close {
-    position: absolute;
-    right: 20px;
-    top: 14px;
+    gap: 20px;
 }

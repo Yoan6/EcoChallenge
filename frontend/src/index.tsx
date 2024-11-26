@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import './utils/style/generalStyle.css'
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import colors from './utils/colors';
 import Game from './components/Game/Game';
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/game" element={<Game />} />
+                <Route path="/game/:gameId" element={<Game />} />
                 <Route path="/about" element={<About />} />
             </Routes>
         </>
@@ -23,11 +22,11 @@ function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
-        <Router>
-            <Link id="home_logo" to="/">
-                <img id="home_logo" src='./assets/logo.png' alt="home"/>
-            </Link>
-            <App />
-        </Router>
+    <Router>
+        <Link id="home_logo" to="/">
+            <img id="home_logo" src='./assets/logo.png' alt="home" />
+        </Link>
+        <App />
+    </Router>
     // </React.StrictMode>
 );

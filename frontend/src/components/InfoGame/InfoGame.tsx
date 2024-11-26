@@ -5,7 +5,8 @@ import APIService from "../../services/APIService";
 
 interface InfoGameProps {
     nb_player: number;
-    closeModalInfoGame: () => void;
+    displayInfoGame: (value: boolean) => void;
+    displayGameMode: (value: boolean) => void;
     setNbPlayer: (value: number) => void;
 }
 
@@ -14,14 +15,13 @@ interface Player {
     color: string;
 }
 
-function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps) {
+function InfoGame({ nb_player, displayInfoGame, displayGameMode, setNbPlayer }: InfoGameProps) {
     const [players, setPlayers] = useState<Player[]>(
         Array.from({ length: nb_player }, () => ({ name: "", color: "#000000" }))
     );
     const [playerErrors, setPlayerErrors] = useState<string[]>(Array(nb_player).fill("")); // Un état pour les erreurs par joueur
     const [gameName, setGameName] = useState("");
     const [game_name_error, setGameNameError] = useState("");
-    const [apiError, setApiError] = useState("");
 
     const navigate = useNavigate();  // Pour le routing
 
@@ -67,6 +67,11 @@ function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps)
         }
     };
 
+    const backToGameMode = () => {
+        displayInfoGame(false);
+        displayGameMode(true);
+    }
+
     async function StartGame() {
         let updatedErrors = Array(nb_player).fill(""); // Réinitialise toutes les erreurs avant de commencer la validation
         setGameNameError(""); // Réinitialise l'erreur du nom de la partie
@@ -110,7 +115,7 @@ function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps)
             await APIService.request("POST", "/games", gameData);
         } catch (error: any) {
             console.log("Erreur lors de la création d'une game : ", error.message);
-            setApiError(error.message)
+            setGameNameError(error.message)
             return
         }
 
@@ -144,7 +149,6 @@ function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps)
         try {
             const responseGame = await APIService.request("GET", "/games/" + gameId);
             gameInBdd = responseGame.game;
-            console.log("Partie créée : ", gameInBdd);
         } catch (error: any) {
             console.log("Erreur lors de la récupération de la partie :", error.message);
             return
@@ -155,8 +159,6 @@ function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps)
         gameInBdd.player_id_actual = firstIdPlayer;
         gameInBdd.nb_turn = 1;
 
-        console.log("Game modifiée : ",gameInBdd);
-
         // Définition du joueur actuel de la partie
         try {
             await APIService.request("PUT", "/games/" + gameId, gameInBdd);
@@ -166,15 +168,15 @@ function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps)
         }
 
         // Redirection vers la page Game
-        navigate("/game");
+        navigate("/game/"+gameId);
     }
 
 
     return (
-        <div className="game_wrapper">
+        <div className="info_game_wrapper">
             <img
                 onClick={() => {
-                    closeModalInfoGame();
+                    displayInfoGame(false);
                     setNbPlayer(2); // Réinitialise nb_player lors de la fermeture
                 }}
                 id="close"
@@ -217,11 +219,20 @@ function InfoGame({ nb_player, closeModalInfoGame, setNbPlayer }: InfoGameProps)
                     </div>
                 ))}
             </div>
-            {apiError && <div className="error-message">{apiError}</div>}
             <div className="btn_wrapper">
                 <a onClick={() => StartGame()} className="btn_game">
                     Lancer la partie
                 </a>
+            </div>
+
+            <a onClick={() => backToGameMode()} className="back btn_game">
+                <img className="icon" src="/assets/general/back.svg" alt="retour"/>
+                <span>Précédent</span>
+            </a>
+
+            <div className="breadcrumb">
+                <span className="step-number inactive"></span>
+                <span className="step-number">2</span>
             </div>
         </div>
     );

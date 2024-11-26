@@ -22,22 +22,6 @@
     background-color: rgba(78, 78, 78, 0.56);
 }
 
-.btn_game {
-    text-decoration: none;
-    padding: 10px;
-    width: 160px;
-    background-color: #8BC34A;
-    color: #FFFFFF;
-    border-radius: 10px;
-    text-align: center;
-    border: none;
-}
-
-.btn_game:hover {
-    background: #2E7D32;
-    cursor: pointer;
-}
-
 
 /*Modale nombre de joueur*/
 .nb_player_wrapper {
@@ -56,10 +40,4 @@
     justify-content: center;
     align-items: center;
     gap: 20px
-}
-
-#close {
-    position: absolute;
-    right: 20px;
-    top: 14px;
 }
